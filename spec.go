@@ -339,10 +339,11 @@ func createLibcontainerConfig(cgroupName string, spec *specs.LinuxSpec, rspec *s
 		rootfsPath = filepath.Join(cwd, rootfsPath)
 	}
 	config := &configs.Config{
-		Rootfs:       rootfsPath,
-		Capabilities: spec.Linux.Capabilities,
-		Readonlyfs:   spec.Root.Readonly,
-		Hostname:     spec.Hostname,
+		ParentDeathSignal: int(syscall.SIGKILL),
+		Rootfs:            rootfsPath,
+		Capabilities:      spec.Linux.Capabilities,
+		Readonlyfs:        spec.Root.Readonly,
+		Hostname:          spec.Hostname,
 	}
 
 	exists := false
